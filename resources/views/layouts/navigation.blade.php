@@ -11,20 +11,40 @@
                 </div>
 
                 <!-- Navigation Links -->
+                @if (Route::has('login'))
+                <div class="hidden md:block sm:fixed sm:top-0 sm:right-0 pr-6 pt-2 text-right">
+                    @auth
+                        <a href="{{route('profile.edit')}}" class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2  focus:outline-red-500"> {{ __('Profile') }}  </a>
+  
+                        <form method="POST" action="{{ route('logout') }}">   @csrf
+                            <a href="{{route('logout')}}" class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2   focus:outline-red-500"
+                                onclick="event.preventDefault(); this.closest('form').submit();">
+                                {{ __('Log Out') }}
+                            </a>
+                        </form>
+                    @else
+                        <a href="{{ route('login') }}" class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Log in</a>
+
+                        @if (Route::has('register'))
+                            <a href="{{ route('register') }}" class="ml-4 font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Register</a>
+                        @endif
+                    @endauth
+                </div>
+                @endif
+
+
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-nav-link :href="route('main')" :active="request()->routeIs('main')">
                         {{ __('All posts') }}
                     </x-nav-link>
-                </div>
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+
+                    @auth
                     <x-nav-link :href="route('blogadmin')" :active="request()->routeIs('blogadmin')">
-                        {{ __('My blog') }}
-                    </x-nav-link>
+                        {{ __('My dashboard') }}
+                    </x-nav-link>  
+                    @endauth
                 </div>
             </div>
-
-    
-
 
 
             <!-- Hamburger -->
@@ -41,19 +61,28 @@
 
     <!-- Responsive Navigation Menu -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
+      
+        @if (Route::has('login'))
         <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link :href="route('main')" :active="request()->routeIs('main')">
-                {{ __('All posts') }}
-            </x-responsive-nav-link>
+                    @auth
+                    <x-responsive-nav-link :href="route('main')" :active="request()->routeIs('main')"> {{ __('All posts') }}  </x-responsive-nav-link>
+                    <x-responsive-nav-link :href="route('blogadmin')" :active="request()->routeIs('blogadmin')"> {{ __('My blog') }} </x-responsive-nav-link>
+                    <x-responsive-nav-link :href="route('profile.edit')" :active="request()->routeIs('profile.edit')"> {{ __('Profile') }} </x-responsive-nav-link>
+                    <form method="POST" action="{{ route('logout') }}">   @csrf
+                    <x-responsive-nav-link :href="route('logout')"
+                            onclick="event.preventDefault();
+                                        this.closest('form').submit();">
+                        {{ __('Log Out') }}
+                    </x-responsive-nav-link>
+                </form>
+                    @else
+                        <x-responsive-nav-link :href="route('login')" :active="request()->routeIs('login')"> {{ __('Log in') }} </x-responsive-nav-link>
+                        @if (Route::has('register'))
+                        <x-responsive-nav-link :href="route('register')" :active="request()->routeIs('register')"> {{ __('Register') }} </x-responsive-nav-link>
+                        @endif
+                    @endauth
         </div>
-
-        <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link :href="route('blogadmin')" :active="request()->routeIs('blogadmin')">
-                {{ __('My blog') }}
-            </x-responsive-nav-link>
-        </div>
-
-
+        @endif
  
     </div>
 </nav>
