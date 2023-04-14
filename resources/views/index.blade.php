@@ -1,7 +1,7 @@
 <x-app-layout>
     <div class="max-w-4xl mx-auto p-4 sm:p-6 lg:p-8">
     <div class="flex-auto text-right mt-2">
-                    <a href="/blogpost" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 ">Add new post</a>
+                    <a href="{{route('blogs.add', [])}}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 ">Add new post</a>
     </div>
 
         <div class="mt-6 bg-white shadow-sm rounded-lg divide-y">
