@@ -29,7 +29,7 @@ use App\Http\Controllers\BlogController;
  
 
     Route::middleware(['auth', 'verified'])->group(function(){
-        Route::get('/blogadmin',[BlogController::class, 'adminview'])->name('blogadmin');
+        Route::get('/dashboard',[BlogController::class, 'adminview'])->name('blogadmin');
     
         Route::get('/blogpost',[BlogController::class, 'add'])->name('blogs.add');
         Route::post('/blogpost',[BlogController::class, 'create'])->name('blogs.create');

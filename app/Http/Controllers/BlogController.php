@@ -58,7 +58,7 @@ class BlogController extends Controller
         $task->post = $request->post;
     	$task->user_id = auth()->user()->id;
     	$task->save();
-    	return redirect('blogadmin'); 
+    	return redirect()->route('blogadmin' );  
     }
 
     /**
@@ -72,7 +72,7 @@ class BlogController extends Controller
                 return view('edit', compact('blog'));
         }           
         else {
-             return redirect('blogadmin');
+             return redirect()->route('blogadmin' );  
          }            	
     }
 
@@ -92,7 +92,7 @@ class BlogController extends Controller
     {
     	if(isset($_POST['delete'])) {
     		$blog->delete();
-    		return redirect('blogadmin');
+    		return redirect()->route('blogadmin' );  
     	}
     	else
     	{
@@ -100,7 +100,7 @@ class BlogController extends Controller
             $blog->title = $request->title;
             $blog->post = $request->post;
 	    	$blog->save();
-	    	return redirect('blogadmin'); 
+	    	return redirect()->route('blogadmin' );  
     	}    	
     }
 }
